@@ -1,2 +1,6 @@
-console.log("hola");
-console.log("hola x2");
+import Server from "./models/server";
+import dotenv from 'dotenv';
+
+dotenv.config();
+const server = new Server();
+
