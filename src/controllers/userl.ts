@@ -15,6 +15,6 @@ export const register = async(req:Request, res: Response) => {
         status:1,
     })
     res.json({
-        msg:`Userl ${name} ${correo} create success`
+        msg:`User ${name} ${correo} create success`
     })
 }

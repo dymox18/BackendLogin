@@ -26,7 +26,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         status: 1,
     });
     res.json({
-        msg: `Userl ${name} ${correo} create success`
+        msg: `User ${name} ${correo} create success`
     });
 });
 exports.register = register;
