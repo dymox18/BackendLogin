@@ -17,7 +17,7 @@ const conection_1 = __importDefault(require("../database/conection"));
 class server {
     constructor() {
         this.app = (0, express_1.default)();
-        this.port = process.env.PORT;
+        this.port = process.env.PORT || '3016';
         this.listen();
         this.DBconnet();
     }
@@ -33,7 +33,7 @@ class server {
                 console.log("Conexion Exitosa");
             }
             catch (error) {
-                console.log("Error de Conexion Exitosa", error);
+                console.log("Error de Conexion", error);
             }
         });
     }

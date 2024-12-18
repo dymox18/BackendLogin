@@ -1,14 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
-const sequelize = new sequelize_1.Sequelize('EmpDB', 'DESKTOP-0AA5AGC\SQLEXPRESS', ' ', {
+const sequelize = new sequelize_1.Sequelize('EmpDB', 'root', 'root', {
     host: 'localhost',
-    dialect: 'mssql',
-    dialectOptions: {
-        Option: {
-            encrypt: true,
-            trustServerCertificate: true
-        }
-    },
+    dialect: 'mysql'
 });
 exports.default = sequelize;

@@ -3,11 +3,11 @@ import sequelize from '../database/conection';
 
 class server {
     private app: Application;
-    private port: string | undefined; 
+    private port: string; 
     constructor(){
         
         this.app = express();
-        this.port = process.env.PORT;
+        this.port = process.env.PORT || '3016';
         this.listen();
         this.DBconnet();
         
@@ -22,7 +22,7 @@ class server {
             await sequelize.authenticate();
             console.log("Conexion Exitosa");
         } catch (error) {
-            console.log("Error de Conexion Exitosa", error);
+            console.log("Error de Conexion", error);
         }
     }
 }

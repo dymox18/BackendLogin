@@ -2,16 +2,9 @@ import { Sequelize } from "sequelize";
 
 
 
-const sequelize = new Sequelize('EmpDB','DESKTOP-0AA5AGC\SQLEXPRESS',' ',{
+const sequelize = new Sequelize('EmpDB','root','root',{
     host: 'localhost',
-    dialect: 'mssql',
-    dialectOptions:{
-        Option:{
-            encrypt: true,
-            trustServerCertificate: true
-        }
-    },
-    
+    dialect: 'mysql'
 })
 
 export default sequelize
