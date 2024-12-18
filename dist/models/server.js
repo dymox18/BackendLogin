@@ -13,12 +13,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const conection_1 = __importDefault(require("../database/conection"));
+const userl_1 = __importDefault(require("../routes/userl"));
+const userl_2 = require("./userl");
 class server {
     constructor() {
         this.app = (0, express_1.default)();
         this.port = process.env.PORT || '3016';
         this.listen();
+        this.midlewares();
+        this.router();
         this.DBconnet();
     }
     listen() {
@@ -26,10 +29,19 @@ class server {
             console.log("Puerto: " + this.port);
         });
     }
+    router() {
+        this.app.use(userl_1.default);
+    }
+    midlewares() {
+        this.app.use(express_1.default.json());
+    }
     DBconnet() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield conection_1.default.authenticate();
+                // await sequelize.authenticate();
+                // await Userl.sync({ force: true }); drop table i create table
+                yield userl_2.Userl.sync();
+                console.log('The table for the User model was just (re)created!');
                 console.log("Conexion Exitosa");
             }
             catch (error) {
