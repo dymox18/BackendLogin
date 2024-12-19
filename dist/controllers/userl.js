@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.register = void 0;
+exports.login = exports.register = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const userl_1 = require("../models/userl");
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -30,3 +30,11 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     });
 });
 exports.register = register;
+const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.body);
+    res.json({
+        msg: `Inicio de secion EXITOSO =>`,
+        body: req.body
+    });
+});
+exports.login = login;

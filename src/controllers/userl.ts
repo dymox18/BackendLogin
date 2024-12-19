@@ -18,3 +18,10 @@ export const register = async(req:Request, res: Response) => {
         msg:`User ${name} ${correo} create success`
     })
 }
+export const login = async(req:Request, res: Response) =>{
+    console.log(req.body);
+    res.json({
+        msg:`Inicio de secion EXITOSO =>`,
+        body: req.body
+    })
+}

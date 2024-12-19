@@ -1,7 +1,9 @@
 import express, { Application } from 'express';
 import sequelize from '../database/conection';
 import Ruserl from '../routes/userl';
+import Rpersonal from '../routes/personal';
 import { Userl } from './userl';
+import { Personal } from './personal';
 
 class server {
     private app: Application;
@@ -22,7 +24,8 @@ class server {
         })
     }
     router(){
-        this.app.use(Ruserl)
+        this.app.use(Ruserl),
+        this.app.use(Rpersonal)
     }
     midlewares(){
         this.app.use(express.json())
@@ -33,6 +36,7 @@ class server {
             // await sequelize.authenticate();
             // await Userl.sync({ force: true }); drop table i create table
             await Userl.sync();
+            await Personal.sync();
             console.log('The table for the User model was just (re)created!');
             console.log("Conexion Exitosa");
         } catch (error) {
