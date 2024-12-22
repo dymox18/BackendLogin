@@ -1,10 +1,12 @@
 import { Router } from "express";
 
-import { registerPersonal } from "../controllers/personal";
+import { getPersonals, registerPersonal } from "../controllers/personal";
 
 
 const router = Router();
 
-router.post("/api/Personal/registerPersonal", registerPersonal)
+router.post("/api/Personal/register", registerPersonal),
+router.get("/api/Personal/getPersonals", getPersonals)
+
 
 export default router

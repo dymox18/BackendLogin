@@ -3,7 +3,7 @@ import { Personal } from "../models/personal"
 
 
 export const registerPersonal = async (req: Request, res: Response) => {
-    const { name, correo, telefono,cargo,estado } = req.body
+    const { name, correo, telefono,cargo } = req.body
 
     Personal.create({
         name: name,
@@ -16,4 +16,9 @@ export const registerPersonal = async (req: Request, res: Response) => {
     res.json({
         msg: `Empleado  ${cargo} ${name} creado correctamente`
     })
+}
+
+export const getPersonals = async (req: Request, res: Response) => {
+    const listPersonals = await Personal.findAll();
+    res.json({listPersonals })
 }

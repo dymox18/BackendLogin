@@ -9,10 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.registerPersonal = void 0;
+exports.getPersonals = exports.registerPersonal = void 0;
 const personal_1 = require("../models/personal");
 const registerPersonal = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, correo, telefono, cargo, estado } = req.body;
+    const { name, correo, telefono, cargo } = req.body;
     personal_1.Personal.create({
         name: name,
         correo: correo,
@@ -26,3 +26,8 @@ const registerPersonal = (req, res) => __awaiter(void 0, void 0, void 0, functio
     });
 });
 exports.registerPersonal = registerPersonal;
+const getPersonals = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const listPersonals = yield personal_1.Personal.findAll();
+    res.json({ listPersonals });
+});
+exports.getPersonals = getPersonals;

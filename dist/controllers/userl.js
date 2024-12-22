@@ -16,16 +16,16 @@ exports.login = exports.register = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const userl_1 = require("../models/userl");
 const sequelize_1 = require("sequelize");
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, correo, password, credential } = req.body;
     //valida si el correo o la credencial existen enla BD
-    const userUnique = yield userl_1.Userl.findOne({ where: { [sequelize_1.Op.or]: { correo: correo, credential: credential } } });
-    if (userUnique) {
+    const userl = yield userl_1.Userl.findOne({ where: { [sequelize_1.Op.or]: { correo: correo, credential: credential } } });
+    if (userl) {
         return res.status(400).json({
             msg: `El usuario ${correo} ya existe o la credencial ${credential}`
         });
     }
-    console.log("usuario o credencial");
     const passwordHash = yield bcrypt_1.default.hash(password, 20);
     try {
         userl_1.Userl.create({
@@ -47,10 +47,22 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.register = register;
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body);
-    res.json({
-        msg: `Inicio de secion EXITOSO =>`,
-        body: req.body
+    const { correo, password } = req.body;
+    const userl = yield userl_1.Userl.findOne({ where: { correo: correo } });
+    if (!userl) {
+        return res.status(400).json({
+            msg: `El usuario  ${correo} NO existe `
+        });
+    }
+    const passwordvalid = yield bcrypt_1.default.compare(password, userl.password);
+    if (!passwordvalid) {
+        return res.status(400).json({
+            msg: `password incorrecto => ${password} `
+        });
+    }
+    const token = jsonwebtoken_1.default.sign({ correo: correo, password: password }, process.env.SECRET_KEY || 'fc4e367ac1541a4f251970', {
+        expiresIn: '1h'
     });
+    res.json({ token });
 });
 exports.login = login;

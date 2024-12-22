@@ -2,21 +2,24 @@ import { Request, Response } from "express"
 import bcrypt from 'bcrypt'
 import { Userl } from "../models/userl"
 import { Op } from "sequelize"
+import  jwt  from "jsonwebtoken"
 
 
-export const register = async(req:Request, res: Response) => {
+
+export const register:any = async(req:Request, res: Response) => {
     const{name,correo,password,credential} = req.body
     
     //valida si el correo o la credencial existen enla BD
-    const userUnique = await Userl.findOne({where: {[Op.or]:{correo:correo, credential:credential}}})
+    const userl = await Userl.findOne({where: {[Op.or]:{correo:correo, credential:credential}}})
 
-    if(userUnique){
+    if(userl){
         return res.status(400).json({
             msg:`El usuario ${correo} ya existe o la credencial ${credential}`
         })
     }
-    console.log("usuario o credencial");
+   
     const passwordHash = await bcrypt.hash(password, 20)
+    
     
     try {
         Userl.create({
@@ -38,10 +41,29 @@ export const register = async(req:Request, res: Response) => {
 
    
 }
-export const login = async(req:Request, res: Response) =>{
-    console.log(req.body);
-    res.json({
-        msg:`Inicio de secion EXITOSO =>`,
-        body: req.body
-    })
+export const login:any = async(req:Request, res: Response) =>{
+
+    const{correo,password} = req.body
+    const userl:any = await Userl.findOne({where:{correo:correo}})
+
+    
+    if(!userl){
+        return res.status(400).json({
+            msg:`El usuario  ${correo} NO existe `
+        })
+    }
+    const passwordvalid = await bcrypt.compare(password,userl.password)
+
+    if(!passwordvalid){
+        return res.status(400).json({
+            msg:`password incorrecto => ${password} `
+        })
+    }
+
+    const  token = jwt.sign({correo:correo,password:password},
+         process.env.SECRET_KEY ||'fc4e367ac1541a4f251970',{
+            expiresIn: '1h'
+         });
+         res.json({token})
+    
 }
