@@ -8,10 +8,10 @@ const sequelize_1 = require("sequelize");
 const conection_1 = __importDefault(require("../database/conection"));
 exports.Personal = conection_1.default.define('Personal', {
     id: { type: sequelize_1.DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    name: { type: sequelize_1.DataTypes.STRING, allowNull: false },
-    correo: { type: sequelize_1.DataTypes.STRING, unique: true, allowNull: false },
-    telefono: { type: sequelize_1.DataTypes.STRING, allowNull: false },
-    cargo: { type: sequelize_1.DataTypes.STRING, allowNull: false },
-    estado: { type: sequelize_1.DataTypes.STRING, allowNull: false },
+    Nombre: { type: sequelize_1.DataTypes.STRING, allowNull: false },
+    Correo: { type: sequelize_1.DataTypes.STRING, unique: true, allowNull: false },
+    Telefono: { type: sequelize_1.DataTypes.STRING, allowNull: false },
+    Cargo: { type: sequelize_1.DataTypes.STRING, allowNull: false },
+    EstadoUsuario: { type: sequelize_1.DataTypes.STRING, allowNull: false },
     status: { type: sequelize_1.DataTypes.INTEGER, allowNull: false },
 });

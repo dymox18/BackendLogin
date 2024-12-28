@@ -10,7 +10,7 @@ export const registerPersonal = async (req: Request, res: Response) => {
         correo: correo,
         telefono: telefono,
         cargo: cargo,
-        estado: 'Empleado Activo',
+        EstadoUsuario: 'Empleado Activo',
         status: 1,
     })
     res.json({

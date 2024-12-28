@@ -18,7 +18,7 @@ const registerPersonal = (req, res) => __awaiter(void 0, void 0, void 0, functio
         correo: correo,
         telefono: telefono,
         cargo: cargo,
-        estado: 'Empleado Activo',
+        EstadoUsuario: 'Empleado Activo',
         status: 1,
     });
     res.json({
